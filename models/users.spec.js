@@ -12,7 +12,7 @@ describe('Users', () => {
       expect(result).toEqual(
         expect.objectContaining({
           error: expect.objectContaining({
-            message: expect.stringContaining('"name" is req uired'),
+            message: expect.stringContaining('"name" is required'),
           })
         })
       );
