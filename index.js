@@ -1,6 +1,22 @@
-const helmet = require("helmet");
+
 const express = require("express");
+const winston = require("winston");
+const security = require("./startup/security");
+const routes = require("./startup/routes");
+const db = require("./startup/db");
+const logging = require("./startup/logging");
+const config = require("./startup/config");
+require('express-async-errors');
 
 const app = express();
 
-app.use(helmet());
+db();
+routes(app);
+security(app);
+logging();
+config();
+
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => winston.info(`Listening on port ${port}...`));
