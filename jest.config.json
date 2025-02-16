@@ -8,4 +8,5 @@
     "default",
     "jest-ctrf-json-reporter"
   ] 
+
 }
