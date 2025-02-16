@@ -6,9 +6,9 @@ describe('Users', () => {
 
   });
 
-  describe('validateUser', () => {
+  describe('validate', () => {
     it('should fail when name is not provided', () => {
-      const result = users.validateUser({ email: 'test@example.com', password: 'Password123' });
+      const result = users.validate({ email: 'test@example.com', password: 'Password123' });
       expect(result).toEqual(
         expect.objectContaining({
           error: expect.objectContaining({
@@ -19,7 +19,7 @@ describe('Users', () => {
     });
 
     it('should fail when name is not valid schedma', () => {
-      const result = users.validateUser({ name: "a",email: 'test@example.com', password: 'Password123' });
+      const result = users.validate({ name: "a",email: 'test@example.com', password: 'Password123' });
       expect(result).toEqual(
         expect.objectContaining({
           error: expect.objectContaining({
@@ -30,7 +30,7 @@ describe('Users', () => {
     });
 
     it('should fail when email is not provided', () => {
-      const result = users.validateUser({ name: 'John Doe', password: 'Password123' });
+      const result = users.validate({ name: 'John Doe', password: 'Password123' });
       expect(result).toEqual(
         expect.objectContaining({
           error: expect.objectContaining({
@@ -41,7 +41,7 @@ describe('Users', () => {
     });
 
     it('should fail when email is not valid', () => {
-      const result = users.validateUser({ name: 'John Doe', email: 'testMailMail' , password: 'Password123' });
+      const result = users.validate({ name: 'John Doe', email: 'testMailMail' , password: 'Password123' });
       expect(result).toEqual(
         expect.objectContaining({
           error: expect.objectContaining({
@@ -52,7 +52,7 @@ describe('Users', () => {
     });
 
     it('should fail when password is not provided', () => {
-      const result = users.validateUser({ name: 'John Doe', email: 'sasas@sasasa.com',});
+      const result = users.validate({ name: 'John Doe', email: 'sasas@sasasa.com',});
 
       expect(result).toEqual(
         expect.objectContaining({
@@ -65,7 +65,7 @@ describe('Users', () => {
 
 
     it('should fail when password is not valid format', () => {
-      const result = users.validateUser({ name: 'John Doe', email: 'sasas@sasasa.com', password: '123'});
+      const result = users.validate({ name: 'John Doe', email: 'sasas@sasasa.com', password: '123'});
 
       expect(result).toEqual(
         expect.objectContaining({
@@ -77,7 +77,7 @@ describe('Users', () => {
     });
 
     it('should fail when password is not valid format with pattern number only', () => {
-      const result = users.validateUser({ name: 'John Doe', email: 'sasas@sasasa.com', password: '123467897'});
+      const result = users.validate({ name: 'John Doe', email: 'sasas@sasasa.com', password: '123467897'});
 
       expect(result).toEqual(
         expect.objectContaining({
@@ -89,7 +89,7 @@ describe('Users', () => {
     });
 
     it('should fail when password is not valid format with pattern character only', () => {
-      const result = users.validateUser({ name: 'John Doe', email: 'sasas@sasasa.com', password: 'asdfghjkl'});
+      const result = users.validate({ name: 'John Doe', email: 'sasas@sasasa.com', password: 'asdfghjkl'});
 
       expect(result).toEqual(
         expect.objectContaining({
@@ -101,7 +101,7 @@ describe('Users', () => {
     });
 
     it('should pass with proper data', () => {
-      const result = users.validateUser({ name: 'John Doe', email: 'email@example.com', password: 'a12234556678'});
+      const result = users.validate({ name: 'John Doe', email: 'email@example.com', password: 'a12234556678'});
 
       expect(result.error).toBeNull();
     });
