@@ -8,7 +8,7 @@
   "author": "MahmoudMabrouk",
   "license": "MIT",
   "description": "",
-  "dependencies": 
+  "dependencies": {
     "express": "^4.16.2",
     "helmet": "^8.0.0",
     "joi": "^13.1.0",
