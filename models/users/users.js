@@ -42,4 +42,4 @@ function validate(user) {
   return schema.validate(user);
 }
 
-module.exports = { User, validate };
+module.exports = { User, validate , userSchema};
