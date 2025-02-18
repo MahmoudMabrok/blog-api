@@ -23,7 +23,7 @@ const userSchema = new Schema({
 });
 
 userSchema.methods.generateAuthToken = function () {
-  const token = jwt.sign({ _id: this._id }, config.get("jwtPrivateKey"), { expiresIn: "5m" });
+  const token = jwt.sign({ _id: this._id }, config.get("jwtPrivateKey"), { expiresIn: "1h" });
   return token;
 };
 
@@ -42,4 +42,4 @@ function validate(user) {
   return schema.validate(user);
 }
 
-module.exports = { User, validate };
+module.exports = { User, validate , userSchema};
