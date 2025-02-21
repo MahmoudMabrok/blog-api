@@ -22,8 +22,8 @@ module.exports = function () {
     handleExceptions: true
   }));
 
-  winston.add(new winston.transports.MongoDB({
-    db: "mongodb://localhost/blog",
-    level: "info",
-  }));
+  // winston.add(new winston.transports.MongoDB({
+  //   db: "mongodb://localhost/blog",
+  //   level: "info",
+  // }));
 };
