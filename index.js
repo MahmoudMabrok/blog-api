@@ -6,7 +6,6 @@ const routes = require("./startup/routes");
 const db = require("./startup/db");
 const logging = require("./startup/logging");
 const config = require("./startup/config");
-const va = require("./startup/config");
 const validation = require("./startup/validation");
 require('express-async-errors');
 
