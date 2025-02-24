@@ -65,8 +65,9 @@ router.put("/:id", auth, async (req, res) => {
   if (content){
     blog.content = content;
   }
-
-  blog.category = null;
+  if (category){
+    blog.category = category;
+  }
 
   await blog.save();
 
@@ -86,7 +87,7 @@ router.delete("/:id", auth, async (req, res) => {
         message: "you can not modify content you have not created",
       });
 
-  await blog.remove();
+  await blog.deleteOne();
 
   res.send({ message: "Blog deleted successfully", blog });
 });
