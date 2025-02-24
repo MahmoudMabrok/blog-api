@@ -1,6 +1,9 @@
 # Blog Management Task
 
 ## Project Requirements
+# Node version 
+- node version is controlled using `.nvmrc`
+
 ### User Authentication
 1. Sign Up:
     - Users must sign up using an email, password, and name.
@@ -23,23 +26,23 @@
 
 ### API Requirements
 ## Authentication APIs
-1. POST /signup
+1. `POST /signup`
     - Input: Email, password, name.
     - Output: Success or error message.
-2. POST /login
+2. `POST /login`
     - Input: Email, password.
     - Output: JWT token or error message.
 ## Blog APIs
-1. POST /blogs
+1. `POST /blogs`
     - Input: Title, content, category.
     - Output: Success or error message.
-2. GET /blogs
+2. `GET /blogs`
     - Input: Optional category filter.
     - Output: List of blogs.
-3. PUT /blogs/:id
+3. `PUT /blogs/:id`
     - Input: Blog ID, updated title/content/category.
     - Output: Success or error message.
-4. DELETE /blogs/:id
+4. `DELETE /blogs/:id`
     - Input: Blog ID.
     - Output: Success or error message.
 

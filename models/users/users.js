@@ -1,13 +1,13 @@
 const Joi = require("joi");
 const { model, Schema } = require("mongoose");
 const jwt = require("jsonwebtoken");
-const config = require("../startup/config");
+const config = require("../../startup/config");
 
 const userSchema = new Schema({
   name: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: 3,
     maxlength: 50,
   },
   email: {

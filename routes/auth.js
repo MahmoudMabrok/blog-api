@@ -10,7 +10,7 @@ router.post("/signup", async (req, res) => {
 
   let user = await User.findOne({ email: req.body.email });
 
-  if (user) return res.status(400).send("Email already exists");
+  if (user) return res.status(400).send({ message: "Email already exists"});
 
   // pick only needed data from the request body
   user = new User(_.pick(req.body, ["name", "email", "password"]));
@@ -34,10 +34,10 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   let user = await User.findOne({ email: req.body.email});
 
-  if (!user) return res.status(401).send("Wrong data.");
+  if (!user) return res.status(401).send({ message: "Wrong data."});
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) return res.status(401).send('Wrong data.');
+  if (!validPassword) return res.status(401).send({ message: 'Wrong data.'});
 
   const token = user.generateAuthToken();
 

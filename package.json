@@ -1,24 +1,28 @@
 {
   "name": "blog-api",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --verbose"
+    "test": "jest --detectOpenHandles --verbose",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "MahmoudMabrouk",
   "license": "MIT",
-  "description": "",
+  "description": "blog api management",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "config": "^3.3.12",
+    "cors": "^2.8.5",
     "express": "^4.16.2",
     "express-async-errors": "^3.1.1",
+    "express-xss-sanitizer": "^2.0.0",
     "helmet": "^8.0.0",
     "joi": "^13.1.0",
     "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
-    "mongoose": "^5.0.2",
+    "mongoose": "8.10.0",
     "winston": "^3.17.0",
     "winston-mongodb": "^6.0.0"
   },
@@ -29,6 +33,7 @@
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
     "jest-ctrf-json-reporter": "^0.0.9",
+    "nodemon": "^3.1.9",
     "supertest": "^7.0.0"
   }
 }
