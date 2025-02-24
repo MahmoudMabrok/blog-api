@@ -1,6 +1,6 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
-const { User } = require('../../models/users');
+const { User } = require('../../models/users/users');
 
 
 describe('Auth api', () => {
@@ -11,7 +11,7 @@ describe('Auth api', () => {
     });
     afterEach( async () => { 
         server.close();
-        await User.remove({});    
+        await User.deleteMany({});    
     });
 
     afterAll( async () => {
