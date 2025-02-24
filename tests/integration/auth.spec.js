@@ -11,7 +11,7 @@ describe('Auth api', () => {
     });
     afterEach( async () => { 
         server.close();
-        await User.remove({});    
+        await User.deleteMany({});    
     });
 
     afterAll( async () => {
