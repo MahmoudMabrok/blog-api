@@ -12,22 +12,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    services:
-      mongodb:
-        image: mongo:4.4
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd="mongosh --eval 'db.runCommand({ping:1})'"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     strategy:
       matrix:
         node-version: [18.x, 23.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        mongodb-version: [ '7.0', '8.0']
 
     steps:
     - uses: actions/checkout@v4
@@ -36,9 +25,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.12.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}    
+
     - run: npm ci
-    - run: npm run build --if-present
-    
+
     - run: npm run test
       env:
         db: mongodb://localhost:27017/blog_text
@@ -47,8 +40,12 @@ jobs:
       uses: ctrf-io/github-test-reporter@v1
       with:
         report-path: './ctrf/*.json'
-        pull-request: true
+        pull-request-report: true
         on-fail-only: true
       if: always()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        
+    - run: npm run build --if-present
+        
