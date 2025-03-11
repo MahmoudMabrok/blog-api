@@ -4,6 +4,31 @@ const { User, validate } = require("../models/users/users");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: Authentication endpoints
+ */
+
+/**
+ * @swagger
+ * /signup:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Register a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *       400:
+ *         description: Bad request
+ */
 router.post("/signup", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -31,6 +56,24 @@ router.post("/signup", async (req, res) => {
     .send({ message: "User created successfully", user: userResponse });
 });
 
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Login a user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Login'
+ *     responses:
+ *       200:
+ *         description: User logged in successfully
+ *       401:
+ *         description: Unauthorized
+ */
 router.post("/login", async (req, res) => {
   let user = await User.findOne({ email: req.body.email});
 

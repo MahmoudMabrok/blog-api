@@ -4,6 +4,73 @@ const { Blog, validate } = require("../models/blog/blog");
 const _ = require("lodash");
 const router = express.Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: Blog
+ *   description: Blog management endpoints
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Blog:
+ *       type: object
+ *       required:
+ *         - title
+ *         - content
+ *         - category
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the blog
+ *         title:
+ *           type: string
+ *           description: The title of the blog
+ *         content:
+ *           type: string
+ *           description: The content of the blog
+ *         category:
+ *           type: string
+ *           description: The category of the blog
+ *         ownerId:
+ *           type: string
+ *           description: The id of the owner of the blog
+ *       example:
+ *         id: d5fE_asz
+ *         title: My First Blog
+ *         content: This is the content of my first blog
+ *         category: Technology
+ *         ownerId: 5f8d0d55b54764421b7156c7
+ */
+
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     tags: [Blog]
+ *     summary: Get all blogs
+ *     parameters:
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *         description: Filter by category
+ *       - in: query
+ *         name: title
+ *         schema:
+ *           type: string
+ *         description: Filter by title
+ *       - in: query
+ *         name: content
+ *         schema:
+ *           type: string
+ *         description: Filter by content
+ *     responses:
+ *       200:
+ *         description: Successful response
+ */
 router.get("/", auth, async (req, res) => {
   const category = req.query.category?.trim() || null;
   const title = req.query.title?.trim() || null;
@@ -28,6 +95,24 @@ router.get("/", auth, async (req, res) => {
   res.send({ data: blogs, count: blogs.length , query });
 });
 
+/**
+ * @swagger
+ * /:
+ *   post:
+ *     tags: [Blog]
+ *     summary: Create a new blog
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Blog'
+ *     responses:
+ *       201:
+ *         description: Blog created successfully
+ *       400:
+ *         description: Bad request
+ */
 router.post("/", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -41,6 +126,35 @@ router.post("/", auth, async (req, res) => {
   res.send({ message: "Blog created successfully", blog });
 });
 
+/**
+ * @swagger
+ * /{id}:
+ *   put:
+ *     tags: [Blog]
+ *     summary: Update a blog
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Blog ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Blog'
+ *     responses:
+ *       200:
+ *         description: Blog updated successfully
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Blog not found
+ *       403:
+ *         description: Access denied
+ */
 router.put("/:id", auth, async (req, res) => {
 
   const { title, content, category } = req.body;
@@ -74,6 +188,27 @@ router.put("/:id", auth, async (req, res) => {
   res.send({ message: "Blog updated successfully", blog });
 });
 
+/**
+ * @swagger
+ * /{id}:
+ *   delete:
+ *     tags: [Blog]
+ *     summary: Delete a blog
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Blog ID
+ *     responses:
+ *       200:
+ *         description: Blog deleted successfully
+ *       404:
+ *         description: Blog not found
+ *       403:
+ *         description: Access denied
+ */
 router.delete("/:id", auth, async (req, res) => {
   let blog = await Blog.findOne({ _id: req.params.id });
 
